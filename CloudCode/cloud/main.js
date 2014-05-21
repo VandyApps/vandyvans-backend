@@ -86,3 +86,26 @@ Parse.Cloud.define("arrivalTimesTest", function(request, response) {
 		response.success(predictionsResponse);
 	});
 });
+
+Parse.Cloud.define("vans", function(request, response) {
+	var routeID = request.params.routeID;
+	
+	Parse.Cloud.httpRequest({
+		url: 'http://api.syncromatics.com/Route/' + routeID + '/Vehicles?api_key=a922a34dfb5e63ba549adbb259518909',
+		success: function(httpResponse) {
+			var vans = httpResponse.data;
+			
+			var vansResponse = [ ];
+			
+			_.each(vans, function(van) {
+				vansResponse[vansResponse.length] = { 'vanID' : van['ID'], 'latitude' : van['Latitude'], 'longitude' : van['Longitude'], 'percentageFull' : van['APCPercentage'] };
+			});
+			
+			response.success(vansResponse);
+		},
+		error: function(httpResponse) {
+			console.error('Request failed with response code ' + httpResponse.status);
+			response.error('VandyVans.com appears to be unavailable.');
+		}
+	});
+})
