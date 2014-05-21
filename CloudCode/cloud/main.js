@@ -18,7 +18,7 @@ Parse.Cloud.define("arrivalTimes", function(request, response) {
 						console.log('No predictions for ' + routeID);
 					} else {
 						predictions.forEach(function(prediction) {
-							predictionsResponse[predictionsResponse.length] = { 'StopID' : prediction['StopId'], 'RouteID' : prediction['RouteId'], 'Minutes' : prediction['Minutes'] };
+							predictionsResponse[predictionsResponse.length] = { 'stopID' : prediction['StopId'], 'routeID' : prediction['RouteId'], 'minutes' : prediction['Minutes'] };
 						});
 					}
 				},
@@ -33,6 +33,10 @@ Parse.Cloud.define("arrivalTimes", function(request, response) {
 	};
 	
 	requestPredictions().then(function() {
+		predictionsResponse.sort(function(a, b) {
+			return a.minutes - b.minutes;
+		});
+		
 		response.success(predictionsResponse);
 	});
 });
