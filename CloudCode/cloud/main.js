@@ -6,7 +6,7 @@ Parse.Cloud.define("arrivalTimes", function(request, response) {
 	var predictionsResponse = [ ];
 	var promises = [ ];
 	
-	var requestPredictions = function() {
+	function requestPredictions() {
 		_.each([ 745, 746, 749 ], function(routeID) {
 			promises.push(Parse.Cloud.httpRequest({
 				url: 'http://api.syncromatics.com/Route/' + routeID + '/Stop/' + stopID + '/Arrivals?api_key=a922a34dfb5e63ba549adbb259518909',
@@ -47,7 +47,7 @@ Parse.Cloud.define("arrivalTimesTest", function(request, response) {
 	var predictionsResponse = [ ];
 	var promises = [ ];
 	
-	var requestPredictions = function() {
+	function requestPredictions() {
 		_.each([ 745, 746, 749 ], function(routeID) {
 			promises.push(Parse.Cloud.httpRequest({
 				url: 'http://api.syncromatics.com/Route/' + routeID + '/Stop/' + stopID + '/Arrivals?api_key=a922a34dfb5e63ba549adbb259518909',
