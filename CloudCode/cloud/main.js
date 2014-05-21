@@ -51,16 +51,16 @@ Parse.Cloud.define("arrivalTimesTest", function(request, response) {
 					if (routeID == 745) {
 						predictions = [ { 'StopId' : stopID, 'RouteId' : routeID, 'Minutes' : 2 }, { 'StopId' : stopID, 'RouteId' : routeID, 'Minutes' : 4 } ]
 					} else if (routeID == 746) {
-						predictions = [ { 'StopId' : stopID, 'RouteId' : routeID, 'Minutes' : 6 } ]
-					} else {
 						predictions = [ { 'StopId' : stopID, 'RouteId' : routeID, 'Minutes' : 10 } ]
+					} else {
+						predictions = [ { 'StopId' : stopID, 'RouteId' : routeID, 'Minutes' : 6 } ]
 					}
 					
 					if (predictions.length == 0) {
 						console.log('No predictions for ' + routeID);
 					} else {
 						predictions.forEach(function(prediction) {
-							predictionsResponse[predictionsResponse.length] = { 'StopID' : prediction['StopId'], 'RouteID' : prediction['RouteId'], 'Minutes' : prediction['Minutes'] };
+							predictionsResponse[predictionsResponse.length] = { 'stopID' : prediction['StopId'], 'routeID' : prediction['RouteId'], 'minutes' : prediction['Minutes'] };
 						});
 					}
 				},
@@ -75,6 +75,10 @@ Parse.Cloud.define("arrivalTimesTest", function(request, response) {
 	};
 	
 	requestPredictions().then(function() {
+		predictionsResponse.sort(function(a, b) {
+			return a.minutes - b.minutes;
+		});
+		
 		response.success(predictionsResponse);
 	});
 });
