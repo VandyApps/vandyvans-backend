@@ -139,6 +139,33 @@ class VandyVans < Sinatra::Base
     waypoints_response.to_json
   end
 
+  get '/stops' do
+    cache_control :private, max_age: 60
+
+    stops_response = {
+        stops: [
+            { '263473' => 'Branscomb Quad' },
+            { '263470' => 'Carmichael Towers' },
+            { '644903' => 'Hank Ingram' },
+            { '1198824' => 'College Halls at Kissam' },
+            { '263444' => 'Highland Quad' },
+        ],
+        other_stops: [
+            { '264041' => 'Vanderbilt Police Department' },
+            { '332298' => 'Vanderbilt Book Store' },
+            { '644873' => '21st near Terrace Place' },
+            { '1198825' => 'Wesley Place Garage' },
+            { '263463' => 'North House' },
+            { '264091' => 'Blair School of Music' },
+            { '264101' => 'McGugin Center' },
+            { '644874' => 'MRB 3' },
+        ],
+    }
+
+    stops_response.to_json
+
+  end
+
   def self.routes_for_stop(stop_ID)
     black = 1857
     gold = 1856
@@ -149,7 +176,7 @@ class VandyVans < Sinatra::Base
     case stop_ID
     when '263473', '263470', '263444' # Branscomb, Towers, or Highland
       routes = [ black, gold, red ]
-    when '644872', '644873' # Kissam or Terrace Place
+    when '1178353', '644873' # Kissam or Terrace Place
       routes = [ black, gold ]
     when '264041' # VUPD
       routes = [ red, gold ]

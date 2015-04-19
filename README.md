@@ -3,7 +3,7 @@ vandyvans-backend
 
 A [Sinatra](http://www.sinatrarb.com/) backend for Vandy Vans clients.
 
-The Sinatra app has 3 endpoints, all at the base URL (http://default-environment-pkuc3jhwtp.elasticbeanstalk.com):
+The Sinatra app has 4 endpoints, all at the base URL (http://default-environment-pkuc3jhwtp.elasticbeanstalk.com):
 
 ## Arrival Times
 
@@ -81,6 +81,33 @@ GET /waypoints
     "longitude": -86.8059504032135
   }
 ]
+```
+
+## Stops
+
+List the stop IDs and stops that should be displayed in the app.
+
+**Request**
+```
+GET /stops
+```
+
+**Parameters**
+None.
+
+**Response**
+```
+{
+  "stops":
+    [
+      "245678": "Branscomb Quad",
+      "256789": "Carmichael Towers"
+    ],
+  "otherStops":
+    [
+      "234566": "VUPD"
+    ]
+}
 ```
 
 ## Deploying the App
