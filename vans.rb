@@ -6,6 +6,23 @@ require 'typhoeus'
 class VandyVans < Sinatra::Base
   API_KEY = ENV['API_KEY']
 
+  # Stops
+  BRANSCOMB_QUAD = '263473'
+  CARMICHAEL_TOWERS = '263470'
+  HANK_INGRAM = '644903'
+  KISSAM = '1198824'
+  HIGHLAND_QUAD = '263444'
+
+  # Other Stops
+  VUPD = '264041'
+  BOOK_STORE = '332298'
+  TERRACE_PLACE = '644873'
+  WESLEY_PLACE = '1198825'
+  NORTH_HOUSE = '263463'
+  BLAIR = '264091'
+  MCGUGIN_CENTER = '264101'
+  MRB_3 = '644874'
+
   set :logging, true
 
   before do
@@ -144,21 +161,21 @@ class VandyVans < Sinatra::Base
 
     stops_response = {
         stops: [
-            { '263473' => 'Branscomb Quad' },
-            { '263470' => 'Carmichael Towers' },
-            { '644903' => 'Hank Ingram' },
-            { '1198824' => 'College Halls at Kissam' },
-            { '263444' => 'Highland Quad' },
+            { BRANSCOMB_QUAD => 'Branscomb Quad' },
+            { CARMICHAEL_TOWERS => 'Carmichael Towers' },
+            { HANK_INGRAM => 'Hank Ingram' },
+            { KISSAM => 'College Halls at Kissam' },
+            { HIGHLAND_QUAD => 'Highland Quad' },
         ],
         other_stops: [
-            { '264041' => 'Vanderbilt Police Department' },
-            { '332298' => 'Vanderbilt Book Store' },
-            { '644873' => '21st near Terrace Place' },
-            { '1198825' => 'Wesley Place Garage' },
-            { '263463' => 'North House' },
-            { '264091' => 'Blair School of Music' },
-            { '264101' => 'McGugin Center' },
-            { '644874' => 'MRB 3' },
+            { VUPD => 'Vanderbilt Police Department' },
+            { BOOK_STORE => 'Vanderbilt Book Store' },
+            { TERRACE_PLACE => '21st near Terrace Place' },
+            { WESLEY_PLACE => 'Wesley Place Garage' },
+            { NORTH_HOUSE => 'North House' },
+            { BLAIR => 'Blair School of Music' },
+            { MCGUGIN_CENTER => 'McGugin Center' },
+            { MRB_3 => 'MRB 3' },
         ],
     }
 
@@ -174,17 +191,17 @@ class VandyVans < Sinatra::Base
     routes = [ ]
 
     case stop_ID
-    when '263473', '263470', '263444' # Branscomb, Towers, or Highland
+    when BRANSCOMB_QUAD, CARMICHAEL_TOWERS, HIGHLAND_QUAD
       routes = [ black, gold, red ]
-    when '1178353', '644873' # Kissam or Terrace Place
+    when KISSAM, TERRACE_PLACE
       routes = [ black, gold ]
-    when '264041' # VUPD
+    when VUPD
       routes = [ red, gold ]
-    when '332298', '263463', '264091', '264101', '644874' # Book Store, North, Blair, McGugin, or MRB 3
+    when BOOK_STORE, NORTH_HOUSE, BLAIR, MCGUGIN_CENTER, MRB_3
       routes = [ gold ]
-    when '238096' # Wesley
+    when WESLEY_PLACE
       routes = [ black ]
-    when '644903' # Hank Ingram
+    when HANK_INGRAM
       routes = [ black, red ]
     end
 
